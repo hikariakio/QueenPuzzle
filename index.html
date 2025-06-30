@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Queen Puzzle Showcase</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen p-4 sm:p-6 md:p-8">
+
+<main class="max-w-2xl mx-auto game-container p-6 sm:p-8 rounded-xl shadow-lg">
+
+    <header class="flex justify-between items-center mb-2">
+        <h1 class="text-3xl font-bold">Queen's Gambit Puzzle</h1>
+        <button id="theme-toggle" aria-label="Theme Button" class="text-2xl px-3 py-2 rounded-full hover:bg-black/10">
+            <i class="fa-solid fa-circle-half-stroke theme-icon"></i>
+        </button>
+    </header>
+
+    <p class="text-center mb-6 text-[var(--text-subtle)]">Place a queen in each row, column, and colored region.</p>
+
+    <div id="loading-overlay" class="absolute inset-0 flex-col justify-center items-center z-10 rounded-xl hidden">
+        <div class="w-12 h-12 rounded-full animate-spin border-4 border-solid border-gray-300 border-t-blue-500"></div>
+        <p class="mt-4 font-semibold text-lg text-[var(--text-subtle)]">Generating Puzzle…</p>
+    </div>
+
+    <section class="mb-6 p-4 rounded-lg bg-[var(--surface-low)]">
+        <div class="flex flex-wrap justify-center items-center gap-4">
+            <label for="size" class="font-medium">Grid Size:</label>
+            <input id="size" type="range" min="4" max="12" value="8" class="w-36 cursor-pointer"/>
+            <span id="size-val" class="font-semibold text-lg text-blue-600 w-8 text-center tabular-nums">8</span>
+            <button id="generate" class="btn bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg shadow-md font-semibold">New Puzzle</button>
+            <button id="reset" class="btn bg-gray-700 hover:bg-gray-800 text-white px-5 py-2 rounded-lg shadow-md font-semibold">Reset</button>
+        </div>
+    </section>
+
+    <section>
+        <div id="grid" class="grid gap-0 border-2 border-gray-300 mx-auto w-max rounded-md overflow-hidden shadow-inner"></div>
+        <div id="message" class="text-center text-lg mt-5 font-semibold h-8"></div>
+        <div class="mt-4 flex justify-center">
+            <button id="check" class="btn bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg shadow-md font-bold text-base hidden">Check Solution</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="puzzle_creator.js" defer></script>
+<script src="main.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+:root {
+    /* Color Scheme Variables */
+    --surface: #edeff1;
+    --surface-low: #e5e7eb;
+    --surface-high: #d1d5db;
+    --text-main: #1f2937;
+    --text-subtle: #4b5563;
+    --queen-color: #000000;
+    --mark-color: #000000;
+    --overlay-bg: rgba(240, 240, 240, 0.85);
+    --icon-color: #1f2937;
+    --message-success: #16a34a;
+    --message-error: #dc2626;
+
+    /* Layout Variables */
+    --tile-size: 48px;
+}
+
+.dark {
+    --surface: #1f2937;
+    --surface-low: #111827;
+    --surface-high: #374151;
+    --text-main: #f9fafb;
+    --text-subtle: #9ca3af;
+    --overlay-bg: rgba(0, 0, 0, 0.65);
+    --icon-color: #cfcfcf;
+    --message-success: #22c55e;
+    --message-error: #ef4444;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--surface-high);
+    color: var(--text-main);
+    transition: background-color .3s, color .3s;
+}
+
+.game-container {
+    background: var(--surface);
+    transition: background-color .3s;
+}
+
+#loading-overlay {
+    background: var(--overlay-bg);
+    backdrop-filter: blur(4px);
+    transition: opacity .3s;
+}
+#loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Base styles for all buttons */
+.btn {
+    transition: background-color .2s, transform .1s, box-shadow .2s;
+}
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+.btn:active {
+    transform: translateY(0) scale(.98);
+    box-shadow: none;
+}
+.btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.theme-icon {
+    color: var(--icon-color);
+    transition: color 0.3s;
+}
+
+.tile {
+    width: var(--tile-size);
+    height: var(--tile-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border: 1px solid #e2e8f040;
+    cursor: pointer;
+    user-select: none;
+    /* Add 'filter' to the transition for a smooth hover effect */
+    transition: background-color .15s, transform .1s, filter .15s;
+}
+.tile:hover {
+    /* This darkens the tile's existing color by 10% */
+    filter: brightness(90%);
+}
+.tile.queen::after {
+    content: "♛";
+    font-size: 30px;
+    color: var(--queen-color);
+}
+.tile.marked::after {
+    content: "✕";
+    font-size: 26px;
+    color: var(--mark-color);
+}
+.tile.given-queen {
+    pointer-events: none;
+    opacity: .8;
+    background: rgba(0,0,0,.05) !important;
+}
+
+#message {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .3s, transform .3s;
+}
+#message.show {
+    opacity: 1;
+    transform: none;
+}
+#message.success { color: var(--message-success); }
+#message.error   { color: var(--message-error); }
