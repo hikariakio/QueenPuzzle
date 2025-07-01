@@ -35,7 +35,9 @@ The repository is briefly described as "A special variant of N-Queen Puzzle." Fo
 ### Puzzle Generation (`puzzle_creator.js`)
 - Region generation using `generateColorRegions(m)`.
 - Solution search and validation (`isSafe()` and `solve()`).
- - `generateUniquePuzzle(m, requireUnique = true)` generates a puzzle. When `requireUnique` is `false` it skips uniqueness checks for faster generation.
+  The solver now tracks used columns and regions with `Set`s and only checks
+  the 3×3 neighborhood for adjacency, significantly speeding up searches.
+- `generateUniquePuzzle(m, requireUnique = true)` generates a puzzle. When `requireUnique` is `false` it skips uniqueness checks for faster generation.
 - `visualizePuzzle()` produces a text grid view of a puzzle.
 
 ### Browser UI (`main.js`)
