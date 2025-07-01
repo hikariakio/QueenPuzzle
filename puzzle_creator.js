@@ -57,30 +57,52 @@ function generateColorRegions(m) {
 }
 
 // Check if a queen can be safely placed at (row, col)
-function isSafe(board, row, col, regions, queens, m) {
-    for (const [qr, qc] of queens) {
-        if (qr === row) return false;                    // same row
-        if (qc === col) return false;                    // same column
-        if (regions[qr][qc] === regions[row][col]) return false; // same region
-        if (Math.abs(qr - row) <= 1 && Math.abs(qc - col) <= 1) return false; // adjacent cell
+function isSafe(board, row, col, regions, columns, usedRegions, m) {
+    if (columns.has(col)) return false;                  // same column
+    if (usedRegions.has(regions[row][col])) return false; // same region
+
+    // Check surrounding 8 cells for adjacency
+    for (let dr = -1; dr <= 1; dr++) {
+        for (let dc = -1; dc <= 1; dc++) {
+            if (dr === 0 && dc === 0) continue;
+            const nr = row + dr;
+            const nc = col + dc;
+            if (nr >= 0 && nr < m && nc >= 0 && nc < m && board[nr][nc] === 'Q') {
+                return false;
+            }
+        }
     }
     return true;
 }
 
 // Backtracking search to solve the puzzle
-function solve(board, regions, m, row = 0, queens = [], solutions = [], maxSolutions = 2) {
-    if (queens.length === m) {
-        solutions.push(queens.map(q => q.slice())); // Clone queen positions more efficiently
+function solve(
+    board,
+    regions,
+    m,
+    row = 0,
+    columns = new Set(),
+    usedRegions = new Set(),
+    queens = [],
+    solutions = [],
+    maxSolutions = 2
+) {
+    if (row === m) {
+        solutions.push(queens.map(q => q.slice())); // Clone queen positions
         return;
     }
     if (solutions.length >= maxSolutions) return;
 
-    for (let col = 0; col < m; col++) {
-        if (isSafe(board, row, col, regions, queens, m)) {
+    for (let col = 0; col < m && solutions.length < maxSolutions; col++) {
+        if (isSafe(board, row, col, regions, columns, usedRegions, m)) {
             board[row][col] = 'Q';
+            columns.add(col);
+            usedRegions.add(regions[row][col]);
             queens.push([row, col]);
-            solve(board, regions, m, row + 1, queens, solutions, maxSolutions);
+            solve(board, regions, m, row + 1, columns, usedRegions, queens, solutions, maxSolutions);
             queens.pop();
+            columns.delete(col);
+            usedRegions.delete(regions[row][col]);
             board[row][col] = null;
         }
     }
@@ -100,7 +122,7 @@ function generateUniquePuzzle(m, requireUnique = true) {
         let solutions = [];
         const maxSolutions = requireUnique ? 2 : 1;
 
-        solve(board, regions, m, 0, [], solutions, maxSolutions);
+        solve(board, regions, m, 0, new Set(), new Set(), [], solutions, maxSolutions);
 
         if (requireUnique ? solutions.length === 1 : solutions.length > 0) {
             let fullSolution = solutions[0];
@@ -129,7 +151,7 @@ function generateUniquePuzzle(m, requireUnique = true) {
                     }
 
                     let testSolutions = [];
-                    solve(testBoard, regions, m, 0, [], testSolutions, 2);
+                    solve(testBoard, regions, m, 0, new Set(), new Set(), [], testSolutions, 2);
                     if (testSolutions.length === 1) {
                         clues.splice(idx, 1); // Remove the clue if still unique
                     }
