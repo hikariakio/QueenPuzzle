@@ -4,7 +4,8 @@
 const fs = require('fs');
 const { generateUniquePuzzle, visualizePuzzle } = require('./puzzle_creator');
 
-const m = parseInt(process.argv[2]) || 8;
+const inputSize = parseInt(process.argv[2]);
+const m = isNaN(inputSize) ? 8 : Math.min(inputSize, 13);
 const shouldSave = process.argv[3] === 'true';
 const fastMode = process.argv[4] === 'fast';
 

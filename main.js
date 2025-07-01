@@ -55,14 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Color Palette ---
     function getRegionColor(id) {
         const lightPalette = [
-            "#f87171","#fb923c","#facc15","#a3e635","#60a5fa","#a78bfa","#f472b6","#22d3ee",
-            "#4ade80","#38bdf8","#c084fc","#fbbf24","#fdba74","#bef264","#fde047","#f9a8d4",
-            "#67e8f9","#6ee7b7","#93c5fd","#ddd6fe"
+            "#f87171", "#fb923c", "#fbbf24", "#facc15", "#a3e635", "#4ade80", "#22d3ee",
+            "#60a5fa", "#a78bfa", "#c084fc", "#f472b6", "#d946ef", "#06b6d4"
         ];
         const darkPalette = [
-            "#ef4444","#f97316","#eab308","#84cc16","#3b82f6","#8b5cf6","#ec4899","#06b6d4",
-            "#22c55e","#0ea5e9","#a855f7","#f59e0b","#ea580c","#65a30d","#d97706","#db2777",
-            "#0891b2","#16a34a","#2563eb","#7c3aed"
+            "#ef4444", "#f97316", "#d97706", "#eab308", "#84cc16", "#22c55e", "#06b6d4",
+            "#3b82f6", "#8b5cf6", "#a855f7", "#ec4899", "#db2777", "#0e7490"
         ];
         const palette = DOM.root.classList.contains("dark") ? darkPalette : lightPalette;
         return palette[id % palette.length];
