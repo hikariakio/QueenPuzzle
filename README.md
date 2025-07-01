@@ -26,7 +26,7 @@ The repository is briefly described as "A special variant of N-Queen Puzzle." Fo
 ### Puzzle Generation (`puzzle_creator.js`)
 - Region generation using `generateColorRegions(m)`.
 - Solution search and validation (`isSafe()` and `solve()`).
-- `generateUniquePuzzle(m)` ensures a single solution and limits retries to 10,000 attempts.
+ - `generateUniquePuzzle(m, requireUnique = true)` generates a puzzle. When `requireUnique` is `false` it skips uniqueness checks for faster generation.
 - `visualizePuzzle()` produces a text grid view of a puzzle.
 
 ### Browser UI (`main.js`)
@@ -39,6 +39,7 @@ The repository is briefly described as "A special variant of N-Queen Puzzle." Fo
 
 ### CLI Usage
 - `puzzle_client.js` exposes `generateUniquePuzzle()` from Node.
+- Call `node puzzle_client.js [grid_size] [save] [fast]` where the optional `fast` flag skips the uniqueness check.
 - Can save puzzles as JSON and text via command-line flags.
 
 ### Python Prototype
