@@ -91,8 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
         DOM.checkBtn.classList.add('hidden');
     }
 
+     function updateTileSize() {
+        const containerWidth = DOM.gridContainer.parentElement.clientWidth;
+        const tile = Math.min(48, Math.floor((containerWidth - 16) / state.gridSize));
+        DOM.root.style.setProperty('--tile-size', `${tile}px`);
+    }
+
     function createGrid() {
         DOM.gridContainer.innerHTML = '';
+        updateTileSize();
         DOM.gridContainer.style.gridTemplateColumns = `repeat(${state.gridSize}, var(--tile-size))`;
         state.userBoard = Array.from({ length: state.gridSize }, () => Array(state.gridSize).fill(''));
         state.givenQueens.forEach(([r, c]) => { state.userBoard[r][c] = 'queen'; });
