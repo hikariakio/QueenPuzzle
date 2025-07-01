@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
         root: document.documentElement,
         themeToggle: document.getElementById('theme-toggle'),
         sizeSelect: document.getElementById('size'),
-        sizeLabel: document.getElementById('size-val'),
         generateBtn: document.getElementById('generate'),
         resetBtn: document.getElementById('reset'),
         checkBtn: document.getElementById('check'),
@@ -234,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     DOM.sizeSelect.addEventListener('change', (e) => {
         state.gridSize = +e.target.value;
-        DOM.sizeLabel.textContent = state.gridSize;
     });
 
     DOM.generateBtn.addEventListener('click', generateNewPuzzle);
