@@ -1,6 +1,15 @@
 # QueenPuzzle
-A special variant of N-Queen Puzzle
+A special variant of N-Queen Puzzle. You can play the live version here:
+<https://yginnovatory.com/queenpuzzle/>
 
+## How to Play
+
+1. Place exactly one queen in each row of the grid.
+2. Place exactly one queen in each column.
+3. Each colored region must contain exactly one queen.
+4. No two queens may touch each other, even diagonally.
+
+Tap a tile once to mark it with an `X` and eliminate that spot. Double tap to place or remove a queen.
 
 # Codebase Overview
 
