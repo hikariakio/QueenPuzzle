@@ -218,7 +218,7 @@ function visualizePuzzle(data) {
     return output.join('\n');
 }
 
-module.exports = {
-    generateUniquePuzzle,
-    visualizePuzzle,
-};
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { generateUniquePuzzle, visualizePuzzle };
+}
+
