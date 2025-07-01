@@ -34,6 +34,8 @@ The repository is briefly described as "A special variant of N-Queen Puzzle." Fo
 
 ### Puzzle Generation (`puzzle_creator.js`)
 - Region generation using `generateColorRegions(m)`.
+- The BFS ensures every region contains at least three tiles and spans
+  more than one row and column.
 - Solution search and validation (`isSafe()` and `solve()`).
   The solver now tracks used columns and regions with `Set`s and only checks
   the 3×3 neighborhood for adjacency, significantly speeding up searches.
