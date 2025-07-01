@@ -22,6 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
         userBoard: [],
     };
 
+    // Check for "fast" query parameter to skip uniqueness checks
+    const urlParams = new URLSearchParams(window.location.search);
+    const fastGeneration = urlParams.get('fast') === '1' || urlParams.get('fast') === 'true';
+
     // --- Theming ---
     function setTheme(mode) {
         if (mode === 'dark') {
@@ -200,7 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             try {
                 // This function comes from puzzle_creator.js
-                const puzzle = generateUniquePuzzle(state.gridSize);
+                const requireUnique = !(fastGeneration || state.gridSize > 10);
+                const puzzle = generateUniquePuzzle(state.gridSize, requireUnique);
                 state.regions = puzzle.regions;
                 state.givenQueens = puzzle.given_queens;
                 createGrid();

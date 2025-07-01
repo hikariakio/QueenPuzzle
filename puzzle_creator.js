@@ -86,8 +86,10 @@ function solve(board, regions, m, row = 0, queens = [], solutions = [], maxSolut
     }
 }
 
-// Generate a unique puzzle with exactly one solution
-function generateUniquePuzzle(m) {
+// Generate a puzzle. By default a unique puzzle is produced, but when
+// `requireUnique` is false the function returns the first valid solution without
+// performing the expensive uniqueness checks.
+function generateUniquePuzzle(m, requireUnique = true) {
     let attempts = 0;
     let testBoard = Array.from({ length: m }, () => Array(m).fill(null)); // Reuse testBoard
 
@@ -96,44 +98,54 @@ function generateUniquePuzzle(m) {
         let regions = generateColorRegions(m);
         let board = Array.from({ length: m }, () => Array(m).fill(null));
         let solutions = [];
+        const maxSolutions = requireUnique ? 2 : 1;
 
-        solve(board, regions, m, 0, [], solutions, 2);
+        solve(board, regions, m, 0, [], solutions, maxSolutions);
 
-        if (solutions.length === 1) {
+        if (requireUnique ? solutions.length === 1 : solutions.length > 0) {
             let fullSolution = solutions[0];
-            let clues = fullSolution.slice(); // Clone the solution
+            if (requireUnique) {
+                let clues = fullSolution.slice(); // Clone the solution
 
-            // Shuffle the clues randomly
-            for (let i = clues.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [clues[i], clues[j]] = [clues[j], clues[i]];
-            }
+                // Shuffle the clues randomly
+                for (let i = clues.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [clues[i], clues[j]] = [clues[j], clues[i]];
+                }
 
-            // Minimize clues while preserving uniqueness
-            for (let idx = clues.length - 1; idx >= 0; idx--) {
-                let testClues = clues.slice();
-                testClues.splice(idx, 1);
+                // Minimize clues while preserving uniqueness
+                for (let idx = clues.length - 1; idx >= 0; idx--) {
+                    let testClues = clues.slice();
+                    testClues.splice(idx, 1);
 
-                for (let r = 0; r < m; r++) {
-                    for (let c = 0; c < m; c++) {
-                        testBoard[r][c] = null;
+                    for (let r = 0; r < m; r++) {
+                        for (let c = 0; c < m; c++) {
+                            testBoard[r][c] = null;
+                        }
+                    }
+
+                    for (const [qr, qc] of testClues) {
+                        testBoard[qr][qc] = 'Q';
+                    }
+
+                    let testSolutions = [];
+                    solve(testBoard, regions, m, 0, [], testSolutions, 2);
+                    if (testSolutions.length === 1) {
+                        clues.splice(idx, 1); // Remove the clue if still unique
                     }
                 }
 
-                for (const [qr, qc] of testClues) {
-                    testBoard[qr][qc] = 'Q';
-                }
-
-                let testSolutions = [];
-                solve(testBoard, regions, m, 0, [], testSolutions, 2);
-                if (testSolutions.length === 1) {
-                    clues.splice(idx, 1); // Remove the clue if still unique
-                }
+                return {
+                    regions: regions,
+                    given_queens: clues,
+                    solution: fullSolution,
+                };
             }
 
+            // Fast path: return the solution without clues
             return {
                 regions: regions,
-                given_queens: clues,
+                given_queens: [],
                 solution: fullSolution,
             };
         }
