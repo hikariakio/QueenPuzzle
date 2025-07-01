@@ -172,13 +172,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (rows.size !== state.gridSize || cols.size !== state.gridSize || regs.size !== state.gridSize) return false;
 
-        // Check that no two queens are adjacent (sharing a side)
+        // Check that no two queens are adjacent (including diagonals)
         for (let i = 0; i < queens.length; i++) {
             for (let j = i + 1; j < queens.length; j++) {
                 const [r1, c1] = queens[i], [r2, c2] = queens[j];
                 const rowDist = Math.abs(r1 - r2);
                 const colDist = Math.abs(c1 - c2);
-                if ((rowDist === 1 && colDist === 0) || (rowDist === 0 && colDist === 1)) {
+                if (rowDist <= 1 && colDist <= 1) {
                     return false; // Found adjacent queens
                 }
             }
