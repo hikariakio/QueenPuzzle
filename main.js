@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DOM = {
         root: document.documentElement,
         themeToggle: document.getElementById('theme-toggle'),
-        sizeSlider: document.getElementById('size'),
+        sizeSelect: document.getElementById('size'),
         sizeLabel: document.getElementById('size-val'),
         generateBtn: document.getElementById('generate'),
         resetBtn: document.getElementById('reset'),
@@ -55,8 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Color Palette ---
     function getRegionColor(id) {
-        const lightPalette = ["#f87171","#fb923c","#facc15","#a3e635","#60a5fa","#a78bfa","#f472b6","#22d3ee","#4ade80","#38bdf8","#c084fc","#fbbf24"];
-        const darkPalette = ["#ef4444","#f97316","#eab308","#84cc16","#3b82f6","#8b5cf6","#ec4899","#06b6d4","#22c55e","#0ea5e9","#a855f7","#f59e0b"];
+        const lightPalette = [
+            "#f87171","#fb923c","#facc15","#a3e635","#60a5fa","#a78bfa","#f472b6","#22d3ee",
+            "#4ade80","#38bdf8","#c084fc","#fbbf24","#fdba74","#bef264","#fde047","#f9a8d4",
+            "#67e8f9","#6ee7b7","#93c5fd","#ddd6fe"
+        ];
+        const darkPalette = [
+            "#ef4444","#f97316","#eab308","#84cc16","#3b82f6","#8b5cf6","#ec4899","#06b6d4",
+            "#22c55e","#0ea5e9","#a855f7","#f59e0b","#ea580c","#65a30d","#d97706","#db2777",
+            "#0891b2","#16a34a","#2563eb","#7c3aed"
+        ];
         const palette = DOM.root.classList.contains("dark") ? darkPalette : lightPalette;
         return palette[id % palette.length];
     }
@@ -67,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         DOM.loadingOverlay.classList.toggle('flex', isLoading);
         DOM.generateBtn.disabled = isLoading;
         DOM.resetBtn.disabled = isLoading;
-        DOM.sizeSlider.disabled = isLoading;
+        DOM.sizeSelect.disabled = isLoading;
     }
 
     function updateCheckButtonVisibility() {
@@ -224,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTheme(isDark ? 'light' : 'dark');
     });
 
-    DOM.sizeSlider.addEventListener('input', (e) => {
+    DOM.sizeSelect.addEventListener('change', (e) => {
         state.gridSize = +e.target.value;
         DOM.sizeLabel.textContent = state.gridSize;
     });
