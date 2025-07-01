@@ -1,59 +1,76 @@
 // Generate a grid of m x m cells with m distinct region seeds
 function generateColorRegions(m) {
-    let grid = Array.from({ length: m }, () => Array(m).fill(null));
-    let seeds = [];
-    let used = new Set();
-    // Randomly generate unique seed positions
-    while (seeds.length < m) {
-        let r = Math.floor(Math.random() * m);
-        let c = Math.floor(Math.random() * m);
-        let key = `${r},${c}`;
-        if (!used.has(key)) {
-            used.add(key);
-            seeds.push([r, c]);
-        }
-    }
-
-    let queue = [];
-    for (let region_id = 0; region_id < seeds.length; region_id++) {
-        let [r, c] = seeds[region_id];
-        grid[r][c] = region_id; // Assign region to seed
-        queue.push([r, c, region_id]);
-    }
-
-    const DIRECTIONS = [
-        [-1, 0], // up
-        [1, 0],  // down
-        [0, -1], // left
-        [0, 1],  // right
-    ];
-
-    // Spread each region to fill the grid using BFS
-    while (queue.length > 0) {
-        let [r, c, region_id] = queue.shift();
-
-        // Randomize direction order
-        let dirs = [...DIRECTIONS];
-        for (let i = dirs.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [dirs[i], dirs[j]] = [dirs[j], dirs[i]];
-        }
-
-        // Expand region to valid neighboring cells
-        for (const [dr, dc] of dirs) {
-            let nr = r + dr, nc = c + dc;
-            if (
-                nr >= 0 && nr < m &&
-                nc >= 0 && nc < m &&
-                grid[nr][nc] === null
-            ) {
-                grid[nr][nc] = region_id;
-                queue.push([nr, nc, region_id]);
+    while (true) {
+        let grid = Array.from({ length: m }, () => Array(m).fill(null));
+        let seeds = [];
+        let used = new Set();
+        // Randomly generate unique seed positions
+        while (seeds.length < m) {
+            let r = Math.floor(Math.random() * m);
+            let c = Math.floor(Math.random() * m);
+            let key = `${r},${c}`;
+            if (!used.has(key)) {
+                used.add(key);
+                seeds.push([r, c]);
             }
         }
-    }
 
-    return grid;
+        let queue = [];
+        for (let region_id = 0; region_id < seeds.length; region_id++) {
+            let [r, c] = seeds[region_id];
+            grid[r][c] = region_id; // Assign region to seed
+            queue.push([r, c, region_id]);
+        }
+
+        const DIRECTIONS = [
+            [-1, 0], // up
+            [1, 0],  // down
+            [0, -1], // left
+            [0, 1],  // right
+        ];
+
+        // Spread each region to fill the grid using BFS
+        while (queue.length > 0) {
+            let [r, c, region_id] = queue.shift();
+
+            // Randomize direction order
+            let dirs = [...DIRECTIONS];
+            for (let i = dirs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [dirs[i], dirs[j]] = [dirs[j], dirs[i]];
+            }
+
+            // Expand region to valid neighboring cells
+            for (const [dr, dc] of dirs) {
+                let nr = r + dr, nc = c + dc;
+                if (
+                    nr >= 0 && nr < m &&
+                    nc >= 0 && nc < m &&
+                    grid[nr][nc] === null
+                ) {
+                    grid[nr][nc] = region_id;
+                    queue.push([nr, nc, region_id]);
+                }
+            }
+        }
+
+        // Validate region sizes and shapes
+        const stats = Array.from({ length: m }, () => ({ rows: new Set(), cols: new Set(), count: 0 }));
+        for (let r = 0; r < m; r++) {
+            for (let c = 0; c < m; c++) {
+                const id = grid[r][c];
+                stats[id].rows.add(r);
+                stats[id].cols.add(c);
+                stats[id].count++;
+            }
+        }
+
+        const valid = stats.every(s => s.count >= 3 && s.rows.size > 1 && s.cols.size > 1);
+        if (valid) {
+            return grid;
+        }
+        // Otherwise loop again to regenerate
+    }
 }
 
 // Check if a queen can be safely placed at (row, col)
