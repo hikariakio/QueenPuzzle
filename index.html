@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Queen Puzzle Showcase</title>
+    <title>The Queen's Puzzle</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,13 +18,29 @@
 <main class="max-w-2xl mx-auto game-container p-6 sm:p-8 rounded-xl shadow-lg">
 
     <header class="flex justify-between items-center mb-2">
-        <h1 class="text-3xl font-bold">Queen's Gambit Puzzle</h1>
+        <h1 class="text-3xl font-bold">The Queen's Puzzle</h1>
         <button id="theme-toggle" aria-label="Theme Button" class="text-2xl px-3 py-2 rounded-full hover:bg-black/10">
             <i class="fa-solid fa-circle-half-stroke theme-icon"></i>
         </button>
     </header>
 
-    <p class="text-center mb-6 text-[var(--text-subtle)]">Place a queen in each row, column, and colored region without any two queens touching.</p>
+    <div class="text-center mb-6">
+        <button id="show-rules" class="underline text-blue-600 hover:text-blue-800">How to Play</button>
+    </div>
+
+    <div id="rules-overlay" class="fixed inset-0 hidden flex items-center justify-center z-20">
+        <div class="relative bg-[var(--surface)] p-6 rounded-lg w-11/12 max-w-md mx-auto">
+            <button id="close-rules" class="absolute top-3 right-3 text-2xl leading-none">&times;</button>
+            <h2 class="text-xl font-semibold mb-4 text-center">How to Play</h2>
+            <ul class="list-disc space-y-3 pl-5 text-left">
+                <li class="flex items-center gap-3"><div class="rule-img w-20 h-16 rounded-md flex-shrink-0"></div>Place one queen in every row.</li>
+                <li class="flex items-center gap-3"><div class="rule-img w-20 h-16 rounded-md flex-shrink-0"></div>Place one queen in every column.</li>
+                <li class="flex items-center gap-3"><div class="rule-img w-20 h-16 rounded-md flex-shrink-0"></div>Each colored region must contain one queen.</li>
+                <li class="flex items-center gap-3"><div class="rule-img w-20 h-16 rounded-md flex-shrink-0"></div>No two queens can touch, even diagonally.</li>
+            </ul>
+            <p class="mt-4 text-sm text-center">Tap once to mark with <strong>X</strong>, tap again to place a queen, tap again to clear.</p>
+        </div>
+    </div>
 
     <div id="loading-overlay" class="absolute inset-0 flex-col justify-center items-center z-10 rounded-xl hidden">
         <div class="w-12 h-12 rounded-full animate-spin border-4 border-solid border-gray-300 border-t-blue-500"></div>
