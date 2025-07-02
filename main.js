@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
         gridContainer: document.getElementById('grid'),
         messageEl: document.getElementById('message'),
         loadingOverlay: document.getElementById('loading-overlay'),
+        rulesBtn: document.getElementById('show-rules'),
+        rulesOverlay: document.getElementById('rules-overlay'),
+        closeRules: document.getElementById('close-rules'),
     };
 
     // --- State ---
@@ -77,6 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
         DOM.generateBtn.disabled = isLoading;
         DOM.resetBtn.disabled = isLoading;
         DOM.sizeSelect.disabled = isLoading;
+    }
+
+    function toggleRules() {
+        DOM.rulesOverlay.classList.toggle('hidden');
     }
 
     function updateCheckButtonVisibility() {
@@ -238,6 +245,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     DOM.generateBtn.addEventListener('click', generateNewPuzzle);
+
+    DOM.rulesBtn.addEventListener('click', toggleRules);
+    DOM.closeRules.addEventListener('click', toggleRules);
+    DOM.rulesOverlay.addEventListener('click', (e) => {
+        if (e.target === DOM.rulesOverlay) toggleRules();
+    });
 
     DOM.resetBtn.addEventListener('click', () => {
         if (state.regions.length) {
