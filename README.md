@@ -1,4 +1,4 @@
-# QueenPuzzle
+# The Queen's Puzzle
 A special variant of N-Queen Puzzle. You can play the live version here:
 <https://yginnovatory.com/queenpuzzle/>
 
@@ -9,7 +9,7 @@ A special variant of N-Queen Puzzle. You can play the live version here:
 3. Each colored region must contain exactly one queen.
 4. No two queens may touch each other, even diagonally.
 
-Tap a tile once to mark it with an `X` and eliminate that spot. Double tap to place or remove a queen.
+Tap once on a tile to mark it with an `X`. Tap again to place a queen, and a third tap clears the tile.
 
 # Codebase Overview
 
