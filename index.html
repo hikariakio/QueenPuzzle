@@ -30,13 +30,22 @@
 
     <div id="rules-overlay" class="fixed inset-0 hidden flex items-center justify-center z-20">
         <div class="relative bg-[var(--surface)] p-6 rounded-lg w-11/12 max-w-md mx-auto">
-            <button id="close-rules" class="absolute top-3 right-3 text-2xl leading-none">&times;</button>
+            <span id="close-rules" class="absolute top-3 right-3 text-2xl leading-none">&times;</span>
             <h2 class="text-xl font-semibold mb-4 text-center">How to Play</h2>
             <ul class="list-disc space-y-3 pl-5 text-left">
-                <li class="flex items-center gap-3"><div class="rule-img w-20 h-16 rounded-md flex-shrink-0"></div>Place one queen in every row.</li>
-                <li class="flex items-center gap-3"><div class="rule-img w-20 h-16 rounded-md flex-shrink-0"></div>Place one queen in every column.</li>
-                <li class="flex items-center gap-3"><div class="rule-img w-20 h-16 rounded-md flex-shrink-0"></div>Each colored region must contain one queen.</li>
-                <li class="flex items-center gap-3"><div class="rule-img w-20 h-16 rounded-md flex-shrink-0"></div>No two queens can touch, even diagonally.</li>
+                <li class="flex items-center gap-3">
+                    <img src="assets/1.png" class="w-20 h-16 rounded-md object-cover flex-shrink-0" alt="Place one queen in every row">
+                    Place one queen in every row.
+                </li>
+                <li class="flex items-center gap-3">
+                    <img src="assets/2.png" class="w-20 h-16 rounded-md object-cover flex-shrink-0" alt="Place one queen in every column">
+                    Place one queen in every column.</li>
+                <li class="flex items-center gap-3">
+                    <img src="assets/3.png" class="w-20 h-16 rounded-md object-cover flex-shrink-0" alt="Each colored region must contain one queen.">
+                    Each colored region must contain one queen.</li>
+                <li class="flex items-center gap-3">
+                    <img src="assets/4.png" class="w-20 h-16 rounded-md object-cover flex-shrink-0" alt="No two queens can touch, even diagonally.">
+                    No two queens can touch, even diagonally.</li>
             </ul>
             <p class="mt-4 text-sm text-center">Tap once to mark with <strong>X</strong>, tap again to place a queen, tap again to clear.</p>
         </div>

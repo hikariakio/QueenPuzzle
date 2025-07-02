@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingOverlay: document.getElementById('loading-overlay'),
         rulesBtn: document.getElementById('show-rules'),
         rulesOverlay: document.getElementById('rules-overlay'),
-        closeRules: document.getElementById('close-rules'),
     };
 
     // --- State ---
@@ -247,10 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     DOM.generateBtn.addEventListener('click', generateNewPuzzle);
 
     DOM.rulesBtn.addEventListener('click', toggleRules);
-    DOM.closeRules.addEventListener('click', toggleRules);
-    DOM.rulesOverlay.addEventListener('click', (e) => {
-        if (e.target === DOM.rulesOverlay) toggleRules();
-    });
+    DOM.rulesOverlay.addEventListener('click', toggleRules);
 
     DOM.resetBtn.addEventListener('click', () => {
         if (state.regions.length) {
