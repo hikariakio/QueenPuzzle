@@ -110,10 +110,30 @@ document.addEventListener('DOMContentLoaded', () => {
         DOM.checkBtn.classList.add('hidden');
     }
 
-     function updateTileSize() {
+    function updateTileSize() {
         const containerWidth = DOM.gridContainer.parentElement.clientWidth;
         const tile = Math.min(48, Math.floor((containerWidth - 16) / state.gridSize));
         DOM.root.style.setProperty('--tile-size', `${tile}px`);
+    }
+
+    // Draw a fine border around each color region
+    function applyRegionBorders(tile, r, c) {
+        const id = state.regions[r][c];
+        const lastRow = state.gridSize - 1;
+        const lastCol = state.gridSize - 1;
+
+        tile.style.borderLeft = (c === 0 || state.regions[r][c - 1] !== id)
+            ? '1px solid black'
+            : '1px solid #e2e8f040';
+        tile.style.borderTop = (r === 0 || state.regions[r - 1][c] !== id)
+            ? '1px solid black'
+            : '1px solid #e2e8f040';
+        tile.style.borderRight = (c === lastCol)
+            ? '1px solid black'
+            : '1px solid #e2e8f040';
+        tile.style.borderBottom = (r === lastRow)
+            ? '1px solid black'
+            : '1px solid #e2e8f040';
     }
 
     function createGrid() {
@@ -136,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     tile.classList.add('queen', 'given-queen');
                 }
 
+                applyRegionBorders(tile, r, c);
                 tile.addEventListener('click', () => handleTileClick(tile, r, c));
                 DOM.gridContainer.appendChild(tile);
             }
