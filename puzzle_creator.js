@@ -190,6 +190,10 @@ function generateUniquePuzzle(m, requireUnique = true) {
         }
 
         if (attempts > 10000) {
+            if (requireUnique) {
+                console.warn("Unique puzzle not found after 10000 attempts; continuing without uniqueness.");
+                return generateUniquePuzzle(m, false);
+            }
             throw new Error("Failed to generate puzzle after 10000 attempts");
         }
     }
