@@ -14,6 +14,9 @@
 
     /* Layout Variables */
     --tile-size: 48px;
+    --grid-line-width: 1px;
+    --grid-line-color: rgba(0,0,0,.25);
+    --region-border-color: #000;
 }
 
 .dark {
@@ -26,6 +29,9 @@
     --icon-color: #cfcfcf;
     --message-success: #22c55e;
     --message-error: #ef4444;
+    --grid-line-width: 1px;
+    --grid-line-color: rgba(0,0,0,.25);
+    --region-border-color: #000;
 }
 
 body {
@@ -81,7 +87,7 @@ body {
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    border: 1px solid #e2e8f040;
+    border: var(--grid-line-width) solid var(--grid-line-color);
     cursor: pointer;
     user-select: none;
     /* Add 'filter' to the transition for a smooth hover effect */
