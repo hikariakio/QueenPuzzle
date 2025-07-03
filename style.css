@@ -29,9 +29,7 @@
     --icon-color: #cfcfcf;
     --message-success: #22c55e;
     --message-error: #ef4444;
-    --grid-line-width: 1px;
-    --grid-line-color: rgba(0,0,0,.25);
-    --region-border-color: #000;
+
 }
 
 body {
