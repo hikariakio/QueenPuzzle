@@ -60,7 +60,7 @@ The repository is briefly described as "A special variant of N-Queen Puzzle." Fo
 
 ## Notes for New Contributors
 
-1. Puzzle generation is computationally intensive for large boards, so be mindful of the 10,000 attempt limit.
+1. Puzzle generation is computationally intensive for large boards. After 10,000 failed attempts at finding a unique puzzle, the generator automatically falls back to a valid puzzle without uniqueness guarantees.
 2. The browser code relies solely on vanilla JavaScript and Tailwind CSS.
 3. Theme colors are controlled in `style.css` and `getRegionColor()` inside `main.js`.
 4. The core puzzle logic resides in `isSafe()` and `isValidSolution()`; start there when modifying the puzzle rules.
