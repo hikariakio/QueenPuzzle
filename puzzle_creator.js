@@ -1,24 +1,56 @@
-// Generate a grid of m x m cells with m distinct region seeds
-function generateColorRegions(m) {
+// Seed generation strategies for region creation
+function randomSeedGenerator(m) {
+    let seeds = [];
+    let used = new Set();
+    while (seeds.length < m) {
+        let r = Math.floor(Math.random() * m);
+        let c = Math.floor(Math.random() * m);
+        const key = `${r},${c}`;
+        if (!used.has(key)) {
+            used.add(key);
+            seeds.push([r, c]);
+        }
+    }
+    return seeds;
+}
+
+function distributedSeedGenerator(m) {
+    let seeds = [];
+    const sectorRows = Math.ceil(Math.sqrt(m));
+    const sectorCols = Math.ceil(m / sectorRows);
+    const rowStep = m / sectorRows;
+    const colStep = m / sectorCols;
+
+    for (let sr = 0; sr < sectorRows && seeds.length < m; sr++) {
+        for (let sc = 0; sc < sectorCols && seeds.length < m; sc++) {
+            const startR = Math.floor(sr * rowStep);
+            const endR = Math.min(m - 1, Math.floor((sr + 1) * rowStep) - 1);
+            const startC = Math.floor(sc * colStep);
+            const endC = Math.min(m - 1, Math.floor((sc + 1) * colStep) - 1);
+
+            const centerR = Math.floor((startR + endR) / 2);
+            const centerC = Math.floor((startC + endC) / 2);
+
+            let r = centerR + Math.floor(Math.random() * 3) - 1;
+            let c = centerC + Math.floor(Math.random() * 3) - 1;
+            r = Math.max(startR, Math.min(endR, r));
+            c = Math.max(startC, Math.min(endC, c));
+
+            seeds.push([r, c]);
+        }
+    }
+    return seeds;
+}
+
+function generateRegions(m, seedGenerator) {
     while (true) {
         let grid = Array.from({ length: m }, () => Array(m).fill(null));
-        let seeds = [];
-        let used = new Set();
-        // Randomly generate unique seed positions
-        while (seeds.length < m) {
-            let r = Math.floor(Math.random() * m);
-            let c = Math.floor(Math.random() * m);
-            let key = `${r},${c}`;
-            if (!used.has(key)) {
-                used.add(key);
-                seeds.push([r, c]);
-            }
-        }
+        let seeds = seedGenerator(m);
 
         let queue = [];
         for (let region_id = 0; region_id < seeds.length; region_id++) {
             let [r, c] = seeds[region_id];
-            grid[r][c] = region_id; // Assign region to seed
+            grid[r][c] = region_id;
             queue.push([r, c, region_id]);
         }
 
@@ -128,13 +160,26 @@ function solve(
 // Generate a puzzle. By default a unique puzzle is produced, but when
 // `requireUnique` is false the function returns the first valid solution without
 // performing the expensive uniqueness checks.
-function generateUniquePuzzle(m, requireUnique = true) {
+function generateColorRegionsNormalBFS(m) {
+    return generateRegions(m, randomSeedGenerator);
+}
+
+function generateColorRegionsDistributedBFS(m) {
+    return generateRegions(m, distributedSeedGenerator);
+}
+
+// Backwards compatible alias
+function generateColorRegions(m) {
+    return generateColorRegionsDistributedBFS(m);
+}
+
+function generateUniquePuzzle(m, requireUnique = true, regionGenerator = generateColorRegionsDistributedBFS) {
     let attempts = 0;
     let testBoard = Array.from({ length: m }, () => Array(m).fill(null)); // Reuse testBoard
 
     while (true) {
         attempts++;
-        let regions = generateColorRegions(m);
+        let regions = regionGenerator(m);
         let board = Array.from({ length: m }, () => Array(m).fill(null));
         let solutions = [];
         const maxSolutions = requireUnique ? 2 : 1;
@@ -223,6 +268,12 @@ function visualizePuzzle(data) {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { generateUniquePuzzle, visualizePuzzle };
+    module.exports = {
+        generateUniquePuzzle,
+        visualizePuzzle,
+        generateColorRegions,
+        generateColorRegionsNormalBFS,
+        generateColorRegionsDistributedBFS,
+    };
 }
 
