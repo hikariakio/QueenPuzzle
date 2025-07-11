@@ -4,16 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Queen's Puzzle</title>
-    
+
     <meta name="description" content="Play The Queen's Puzzle, a challenging twist on the classic N‑Queens game with unique colored regions." />
     <meta name="keywords" content="queen puzzle,n queens,puzzle game,logic puzzle,brain teaser" />
     <meta property="og:title" content="The Queen's Puzzle" />
     <meta property="og:description" content="Solve this special variant of the N‑Queens puzzle where each colored region must contain exactly one queen." />
-    <meta property="og:image" content="thumbnail.jpg" />
+    <meta property="og:image" content="https://yginnovatory.com/queenpuzzle/thumbnail.jpg" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yginnovatory.com/queenpuzzle/" />
+    <meta property="og:site_name" content="The Queen's Puzzle" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="thumbnail.jpg" type="image/jpeg" />
+    <meta name="twitter:title" content="The Queen's Puzzle" />
+    <meta name="twitter:description" content="Solve this special variant of the N‑Queens puzzle where each colored region must contain exactly one queen." />
+    <meta name="twitter:image" content="https://yginnovatory.com/queenpuzzle/thumbnail.jpg" />
+    <meta itemprop="name" content="The Queen's Puzzle" />
+    <meta itemprop="description" content="Solve this special variant of the N‑Queens puzzle where each colored region must contain exactly one queen." />
+    <meta itemprop="image" content="https://yginnovatory.com/queenpuzzle/thumbnail.jpg" />
+    <meta name="author" content="Ye Gaung Kyaw" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1f2937" />
+    <link rel="canonical" href="https://yginnovatory.com/queenpuzzle/" />
+    <link rel="icon" href="https://yginnovatory.com/queenpuzzle/thumbnail.jpg" type="image/jpeg" />
+
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +52,7 @@
 
     <div id="rules-overlay" class="fixed inset-0 hidden flex items-center justify-center z-20">
         <div class="relative bg-[var(--surface)] p-6 rounded-lg w-11/12 max-w-md mx-auto">
-            <span id="close-rules" class="absolute top-3 right-3 text-2xl leading-none">&times;</span>
+            <button id="close-rules" aria-label="Close rules overlay" class="absolute top-3 right-3 text-2xl leading-none">&times;</button>
             <h2 class="text-xl font-semibold mb-4 text-center">How to Play</h2>
             <ul class="list-disc space-y-3 pl-5 text-left">
                 <li class="flex items-center gap-3">
