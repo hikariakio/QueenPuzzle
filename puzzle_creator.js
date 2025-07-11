@@ -16,6 +16,7 @@ function generateColorRegions(m) {
         }
 
         let queue = [];
+        let head = 0; // queue head index
         for (let region_id = 0; region_id < seeds.length; region_id++) {
             let [r, c] = seeds[region_id];
             grid[r][c] = region_id; // Assign region to seed
@@ -30,8 +31,8 @@ function generateColorRegions(m) {
         ];
 
         // Spread each region to fill the grid using BFS
-        while (queue.length > 0) {
-            let [r, c, region_id] = queue.shift();
+        while (head < queue.length) {
+            let [r, c, region_id] = queue[head++];
 
             // Randomize direction order
             let dirs = [...DIRECTIONS];
