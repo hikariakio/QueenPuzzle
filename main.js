@@ -122,8 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const lastRow = state.gridSize - 1;
         const lastCol = state.gridSize - 1;
 
-        const outline = `var(--grid-line-width) solid var(--region-border-color)`;
-        const inner = `var(--grid-line-width) solid var(--grid-line-color)`;
+        const outline = `var(--region-border-line-width) solid var(--region-border-color)`;
+        const inner = `var(--grid-line-width) dotted var(--grid-line-color)`;
 
         tile.style.borderLeft = (c === 0 || state.regions[r][c - 1] !== id)
             ? outline

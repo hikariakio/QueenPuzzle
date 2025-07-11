@@ -14,9 +14,12 @@
 
     /* Layout Variables */
     --tile-size: 48px;
-    --grid-line-width: 1px;
-    --grid-line-color: rgba(0,0,0,.25);
-    --region-border-color: #000;
+    --grid-line-width: 2px;
+    --grid-line-color: rgba(0,0,0,0.03);
+    --region-border-line-width: 1px;
+    --region-border-color: rgba(0.7,0.7,0.7,0.9);
+    --board-border-color: #cccecf;
+
 }
 
 .dark {
@@ -29,6 +32,12 @@
     --icon-color: #cfcfcf;
     --message-success: #22c55e;
     --message-error: #ef4444;
+
+    --grid-line-width: 1px;
+    --grid-line-color: rgba(0,0,0,0.1);
+    --region-border-line-width: 1px;
+    --region-border-color: rgba(0.7,0.7,0.7,0.9);
+    --board-border-color: #425065;
 
 }
 
@@ -134,4 +143,8 @@ body {
 
 .dark .rule-img {
     background: #374151;
+}
+
+.grid {
+    border: 2px solid var(--board-border-color);
 }
