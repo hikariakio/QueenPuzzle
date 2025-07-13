@@ -105,13 +105,13 @@ body {
     filter: brightness(90%);
 }
 .tile.queen::after {
-    content: "♛";
-    font-size: 30px;
+    content: "♕";
+    font-size: 28px;
     color: var(--queen-color);
 }
 .tile.marked::after {
-    content: "✕";
-    font-size: 26px;
+    content: "⛌";
+    font-size: 20px;
     color: var(--mark-color);
 }
 .tile.given-queen {
